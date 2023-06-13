@@ -5,21 +5,26 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.lionschool.R
 import br.senai.sp.jandira.lionschool.gui.ui.theme.ui.theme.LionSchoolTheme
 import br.senai.sp.jandira.lionschool.model.Curso
 import br.senai.sp.jandira.lionschool.model.CursosList
@@ -27,6 +32,7 @@ import br.senai.sp.jandira.lionschool.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class CursosActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +48,7 @@ class CursosActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CreateCursosActivity() {
 
@@ -83,7 +89,27 @@ fun CreateCursosActivity() {
             horizontalAlignment = Alignment.CenterHorizontally
         )
 
+
+
         {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                Image(
+                    painter = painterResource(id = R.drawable.arrow_blue),
+                    contentDescription = ""
+                )
+                Text(
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                    },
+                    text = "prev",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = Color(35, 125, 254)
+                )
+
+            }
+
             Text(
                 text = "What's your course?",
                 style = TextStyle(
@@ -103,7 +129,7 @@ fun CreateCursosActivity() {
                         context.startActivity(intent)
                     },
                         colors = ButtonDefaults.buttonColors(Color(255, 255, 255)),
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier.width(100.dp),
                     ) {
                         Text(text = "${it.sigla}", color = Color(35, 125, 254))
                     }

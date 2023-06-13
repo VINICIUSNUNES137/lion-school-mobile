@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -68,7 +69,12 @@ fun MainActivityScreen() {
             {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
 
-                    Text(text = "next", color = Color.White)
+                    Text(
+                        modifier = Modifier.clickable {
+                            val intent = Intent(context, CursosActivity::class.java)
+                            context.startActivity(intent)
+                        },
+                        text = "next", color = Color.White)
                     Image(
                         painter = painterResource(id = R.drawable.arrow_right_24),
                         contentDescription = ""
